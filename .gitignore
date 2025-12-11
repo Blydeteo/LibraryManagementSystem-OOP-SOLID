@@ -1,0 +1,67 @@
+# ============================
+# Java Build and IDE Files
+# ============================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ
+*.ctxt
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# ============================
+# Output (build) directories
+# ============================
+out/
+bin/
+build/
+target/
+
+# ============================
+# macOS system files
+# ============================
+.DS_Store
+
+# ============================
+# VSCode / IntelliJ / Eclipse
+# ============================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VSCode settings
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ============================
+# Temporary files
+# ============================
+*.tmp
+*.swp
+*.swo
+
+# ============================
+# Ignore generated dependency lists
+# ============================
+main_sources.txt
+test_sources.txt
+
+# ============================
+# DO NOT IGNORE lib/*.jar
+# because you may want to commit your third-party jars
+# ============================
+# If you want to ignore JARs in lib/, uncomment below:
+# lib/*.jar
