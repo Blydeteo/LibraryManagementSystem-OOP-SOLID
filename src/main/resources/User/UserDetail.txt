@@ -1,0 +1,5 @@
+userId|username|password|roles
+1|admin|1234|ADMIN
+2|lib001|libpass|LIBRARIAN
+3|john123|pass123|MEMBER
+4|susan97|mypwd|MEMBER,PREMIUM_MEMBER

@@ -8,7 +8,7 @@ MAIN_OUT = out/main
 LIB_DIR  = lib
 
 # Set your Main class here
-MAIN_CLASS = com.library.App
+MAIN_CLASS = com.library.Main
 
 # Build classpath
 ifeq ("$(wildcard $(LIB_DIR))","")
@@ -37,6 +37,7 @@ compile:
 	
 run: compile
 	@echo "Running application..."
+	clear
 	@java $(MAIN_CP) $(MAIN_CLASS)
 
 clean:
