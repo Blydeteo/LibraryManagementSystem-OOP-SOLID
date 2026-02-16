@@ -16,18 +16,33 @@ public class Application {
         LoginUI = new LoginUI(LoginController);
     }
     public void start() {
-        // --- Login loop ---
-        while (!LoginUI.isLoggedIn()) {
+        // --- Login loop with retry limit ---
+        int maxAttempts = 3;
+        int attempts = 0;
+        
+        System.out.println("\n=== Welcome to Library Management System ===");
+        System.out.println("Login attempts remaining: " + (maxAttempts - attempts));
+        
+        while (!LoginUI.isLoggedIn() && attempts < maxAttempts) {
             LoginUI.show();
+            attempts++;
+            
+            if (!LoginUI.isLoggedIn() && attempts < maxAttempts) {
+                System.out.println("\nLogin failed. Please try again.");
+                System.out.println("Attempts remaining: " + (maxAttempts - attempts));
+            }
         }
-
-        // if we got no error on login, then we set the user globally
-        User LoggedInUser = LoginUI.getUser();
-        System.out.println("[Application]: Logged in as: " + LoggedInUser.getUsername() + ", ROLES: " + LoggedInUser.getRoles());
-        //boolean LoggedIn = false;
-
-        //while (!LoggedIn) {
-        //    LoginUI.show();
-        //}
+        
+        // Check if login was successful
+        if (LoginUI.isLoggedIn()) {
+            User LoggedInUser = LoginUI.getUser();
+            System.out.println("\n[Application]: Successfully logged in as: " + LoggedInUser.getUsername());
+            System.out.println("[Application]: Your roles: " + LoggedInUser.getRoles());
+        } else {
+            System.out.println("\n[Application]: Authentication failed after " + maxAttempts + " attempts. Exiting.");
+        }
+        
+        // Close the LoginUI scanner
+        LoginUI.close();
     }
 }

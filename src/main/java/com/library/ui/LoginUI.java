@@ -4,42 +4,51 @@ import java.util.Scanner;
 
 import com.library.domain.entity.User;
 
+import com.library.dto.AuthenticationResult;
 import com.library.interfaces.controller.ILoginController;
 
 public class LoginUI {
 
     private final ILoginController LoginController;
+    private final Scanner scanner;
     private User User;
 
     /**
-     * Constructor
+     * Constructor - initializes Scanner for persistent input handling
      * @param LoginController the controller implementing ILoginController
      */
     public LoginUI(ILoginController LoginController) {
         this.LoginController = LoginController;
+        this.scanner = new Scanner(System.in);
     }
 
     /**
      * Show login prompt, read input, call controller, and store logged-in user
      */
     public void show() {
-        Scanner Scanner = new Scanner(System.in);
+        try {
+            System.out.println("\n=== Library Management System Login ===");
+            System.out.print("Username: ");
+            String username = scanner.nextLine();
 
-        System.out.println("\n=== Library Management System Login ===");
-        System.out.print("Username: ");
-        String Username = Scanner.nextLine();
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
 
-        System.out.print("Password: ");
-        String Password = Scanner.nextLine();
+            // Call controller to handle login
+            AuthenticationResult result = LoginController.login(username, password);
 
-        // Call controller to handle login
-        User = LoginController.login(Username, Password);
-
-        //if (User != null) {
-        //    System.out.println("Login successful!");
-        //} else {
-        //    System.out.println("Login failed. Please try again.");
-        //}
+            if (result.isSuccess()) {
+                User = result.getAuthenticatedUser();
+                System.out.println("\n✓ " + result.getMessage());
+                System.out.println("Your roles: " + User.getRoles());
+            } else {
+                User = null;
+                System.out.println("\n✗ " + result.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading input: " + e.getMessage());
+            User = null;
+        }
     }
 
     /**
@@ -54,5 +63,18 @@ public class LoginUI {
      */
     public boolean isLoggedIn() {
         return User != null;
+    }
+    
+    /**
+     * Close the scanner when application shuts down
+     */
+    public void close() {
+        try {
+            if (scanner != null) {
+                scanner.close();
+            }
+        } catch (Exception e) {
+            // Ignore errors during close
+        }
     }
 }

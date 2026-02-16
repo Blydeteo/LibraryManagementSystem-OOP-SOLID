@@ -1,16 +1,16 @@
 package com.library.interfaces.controller;
 
-import com.library.domain.entity.User;
+import com.library.dto.AuthenticationResult;
 
 /**
- * InputInterface for Login use case
+ * ILoginController interface for login operations
  */
 public interface ILoginController {
     /**
-     * Authenticate user
-     * @param Username
-     * @param Password
-     * @return User if successful, null if failed
+     * Authenticate user with username and password
+     * @param username Username input
+     * @param password Password input
+     * @return AuthenticationResult containing authentication outcome
      */
-    User login(String Username, String Password);
+    AuthenticationResult login(String username, String password);
 }
